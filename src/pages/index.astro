@@ -1,11 +1,119 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+const name = "Shreyash Samal";
+const tagline = "Computer Engineering @ UC Davis | RTL/FPGA • Digital Design • Quantum (Qiskit Metal)";
+const links = {
+  github: "https://github.com/Shreyash2005",
+  linkedin: "PASTE_LINKEDIN_HERE",
+  email: "PASTE_EMAIL_HERE",
+};
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = [
+  {
+    title: "Hardware FIFO with Circular Buffer (M9K Dual-Port RAM)",
+    tagline: "Parameterized FIFO with full/empty detection and simultaneous read/write.",
+    tech: ["Verilog", "Quartus", "ModelSim", "Intel MAX10 (M9K)"],
+    bullets: [
+      "Circular buffer using head/tail pointers",
+      "Correct full/empty flag logic and item count",
+      "Verified with testbench + synthesized for FPGA resource usage",
+    ],
+    github: "PASTE_REPO_LINK",
+  },
+  {
+    title: "Signed Divider (32-bit / 16-bit) using Shift-Subtract FSM",
+    tagline: "Multi-cycle divider producing quotient/remainder with ready signaling.",
+    tech: ["Verilog", "FSM", "ModelSim"],
+    bullets: [
+      "Unsigned division datapath + sign handling (2’s complement)",
+      "Controller FSM for iterative shift/subtract steps",
+      "Tested using signed vectors and simulated waveforms",
+    ],
+    github: "PASTE_REPO_LINK",
+  },
+  {
+    title: "Integer Square Root Hardware Accelerator",
+    tagline: "Computes ⌊sqrt(N)⌋ using iterative subtraction of odd integers.",
+    tech: ["Verilog", "FSM", "M9K RAM"],
+    bullets: [
+      "Control FSM + datapath for iterative computation",
+      "Integrated RAM-based input storage + display output",
+      "Simulated against provided test vectors",
+    ],
+    github: "PASTE_REPO_LINK",
+  },
+  {
+    title: "Digital Lock FSM (Mealy, One-Hot Encoding)",
+    tagline: "Unlocks on sequence a, b, a, a with required spacing rules.",
+    tech: ["Verilog", "FSM Design"],
+    bullets: [
+      "One-hot state encoding",
+      "Robust invalid-sequence recovery",
+      "Synthesized and reported resource usage",
+    ],
+    github: "PASTE_REPO_LINK",
+  },
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{name}</title>
+    <style>
+      :root { color-scheme: dark; }
+      body { margin: 0; font-family: ui-sans-serif, system-ui; background: #0b0f19; color: #e8eefc; }
+      a { color: #9bbcff; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .wrap { max-width: 980px; margin: 0 auto; padding: 40px 20px; }
+      .card { border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; padding: 18px; background: rgba(255,255,255,0.03); }
+      .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      .pill { font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.16); opacity: 0.9; }
+      .muted { opacity: 0.85; }
+      h1 { margin: 0 0 8px 0; font-size: 42px; }
+      h2 { margin: 28px 0 12px 0; font-size: 22px; }
+      h3 { margin: 0 0 6px 0; font-size: 16px; }
+      ul { margin: 10px 0 0 18px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="card">
+        <h1>{name}</h1>
+        <p class="muted">{tagline}</p>
+        <p style="display:flex; gap:14px; flex-wrap:wrap; margin: 12px 0 0 0;">
+          <a href={links.github} target="_blank" rel="noreferrer">GitHub</a>
+          <a href={links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href={"mailto:" + links.email}>Email</a>
+        </p>
+      </header>
+
+      <h2>Projects</h2>
+      <section class="grid">
+        {projects.map((p) => (
+          <article class="card">
+            <h3>{p.title}</h3>
+            <p class="muted" style="margin:0 0 10px 0;">{p.tagline}</p>
+            <ul>
+              {p.bullets.map((b) => <li>{b}</li>)}
+            </ul>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
+              {p.tech.map((t) => <span class="pill">{t}</span>)}
+            </div>
+            <div style="margin-top:12px;">
+              <a href={p.github} target="_blank" rel="noreferrer">Repo →</a>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <h2>About</h2>
+      <div class="card">
+        <p class="muted" style="margin:0;">
+          I build RTL-focused digital systems (FSM + datapath), verify them in simulation, and synthesize for FPGA.
+          I’m especially interested in front-end RTL/ASIC style work, FPGA prototyping, and hardware-software systems.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
